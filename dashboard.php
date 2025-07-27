@@ -16,19 +16,35 @@ $reservations = $stmt->fetchAll();
 $success = "";
 $error = "";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Suppression du compte
+if (isset($_POST['delete_account'])) {
+    // Supprimer les réservations liées
+    $stmt = $pdo->prepare("DELETE FROM reservations WHERE email = ?");
+    $stmt->execute([$user['email']]);
+
+    // Supprimer l'utilisateur
+    $stmt = $pdo->prepare("DELETE FROM users WHERE email = ?");
+    $stmt->execute([$user['email']]);
+
+    // Détruire la session
+    session_destroy();
+
+    // Redirection vers l'accueil
+    header("Location: index.php");
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_account'])) {
     $new_name = trim($_POST['name']);
     $new_password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
 
-    // Mise à jour du nom
     if (!empty($new_name) && $new_name !== $user['name']) {
         $pdo->prepare("UPDATE users SET name = ? WHERE email = ?")->execute([$new_name, $user['email']]);
         $_SESSION['user']['name'] = $new_name;
         $success .= "✅ Nom mis à jour. ";
     }
 
-    // Mise à jour du mot de passe
     if (!empty($new_password) || !empty($confirm_password)) {
         if ($new_password !== $confirm_password) {
             $error = "❌ Les mots de passe ne correspondent pas.";
@@ -132,9 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       background: #fff;
     }
 
-    .btn {
+    .btn, form button {
       display: inline-block;
-      margin: 1rem auto;
       padding: 0.75rem 1.5rem;
       background: #fff;
       color: #000;
@@ -143,10 +158,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       border-radius: 8px;
       text-decoration: none;
       text-align: center;
+      cursor: pointer;
       transition: 0.3s ease;
     }
 
-    .btn:hover {
+    .btn:hover, form button:hover {
       background: #000;
       color: #fff;
     }
@@ -158,21 +174,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 1rem;
-    }
-
-    form button {
-      background: #000;
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem 1.5rem;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    form button:hover {
-      background: #444;
     }
 
     .success {
@@ -193,6 +194,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       border-radius: 6px;
       text-align: center;
       margin-bottom: 1rem;
+    }
+
+    .delete-account {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .delete-account form {
+      display: inline-block;
+    }
+
+    .delete-account button {
+      background: #fff;
+      color: #a40000;
+      border: 2px solid #a40000;
+    }
+
+    .delete-account button:hover {
+      background: #a40000;
+      color: #fff;
     }
 
     footer {
@@ -252,6 +273,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form method="POST">
+      <input type="hidden" name="update_account" value="1">
       <label for="name">Nom complet :</label>
       <input type="text" name="name" id="name" value="<?= htmlspecialchars($user['name']) ?>" required>
 
@@ -287,8 +309,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
   </section>
 
-  <div style="text-align: center;">
-    <a href="reservation.php" class="btn">📌 Réserver une prestation</a>
+  <div class="delete-account">
+    <form method="POST" onsubmit="return confirm(' Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
+      <input type="hidden" name="delete_account" value="1">
+      <button type="submit">🗑️ Supprimer mon compte</button>
+    </form>
   </div>
 </main>
 
