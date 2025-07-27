@@ -1,0 +1,233 @@
+/* Reset de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: #111;
+    background: #fff;
+    min-height: 100vh;
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* HEADER */
+header {
+    background: #000;
+    color: #fff;
+    padding: 2rem;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+/* NAVIGATION */
+nav {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+nav a {
+    display: inline-block;
+    margin: 0 12px;
+    padding: 10px 20px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 30px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+nav a:hover,
+nav a.active {
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+}
+
+/* SECTION */
+section {
+    background: #f9f9f9;
+    padding: 60px 20px;
+    border-radius: 15px;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+section h1 {
+    font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    color: #000;
+    margin-bottom: 1rem;
+}
+
+section p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+/* BOUTONS */
+.btn,
+button {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+    border: 2px solid #000;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover,
+button:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* FORMULAIRE */
+form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin: 1rem 0 0.5rem;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #000;
+    outline: none;
+}
+
+/* TABLEAU */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th,
+td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background: #000;
+    color: #fff;
+}
+
+/* MESSAGES */
+.error-message,
+.error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    border: 1px solid #f5c6cb;
+    text-align: center;
+}
+
+.success-message {
+    background: #d4edda;
+    color: #155724;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 2rem;
+    border: 1px solid #c3e6cb;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #000;
+    color: #fff;
+    margin-top: 3rem;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* ANIMATIONS */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    nav a {
+        display: block;
+        margin: 8px auto;
+        width: 80%;
+    }
+
+    .btn,
+    button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
